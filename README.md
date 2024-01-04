@@ -1,18 +1,18 @@
-# slim-libpq-service
+# postgres-rest-service
 
 ## Introduction
-`slim-libpq-service` is a minimal yet robust demonstration of a REST API utilizing the libpq library for PostgreSQL database interaction. This project highlights efficient database management, SQL utilization, and containerization with Docker.
+`postgres-rest-service` is a minimal yet robust demonstration of a REST API utilizing the libpq library for PostgreSQL database interaction. This project highlights efficient database management, SQL utilization, and containerization with Docker.
 
 ## Directory Structure
 ```
-~/ (Project Root)
+~/ (postgres-rest-service)
 |-- boost-base/
-| -- Dockerfile 
+|-- Dockerfile 
 |-- database/ 
 | |-- Dockerfile 
 | |-- *.cpp (C++ files) 
 | |-- *.sql (SQL scripts) 
-| | -- *.txt (Additional text files)
+| |-- *.txt (Additional text files)
 `-- Docker-compose.yaml
 ```
 
