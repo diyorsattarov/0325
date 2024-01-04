@@ -1,18 +1,18 @@
 # Start from the common base image
-FROM boost-base as database-service
+FROM boostbase as beastgres
 
 # Install PostgreSQL development headers
 RUN apt-get update && apt-get install -y libpq-dev
 
 # Copy the C++ source code
-COPY . /usr/src/service-app
+COPY . /usr/src/beastgres
 
 # Set the working directory
-WORKDIR /usr/src/service-app
+WORKDIR /usr/src/beastgres
 
 # Build the application
 RUN cmake . && make
 
 # Command to run the application
-CMD ["./service"]
+CMD ["./beastgres"]
 

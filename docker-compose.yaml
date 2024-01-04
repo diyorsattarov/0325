@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  service:
-    build: ./database
+  beastgres:
+    build: ./beastgres
     depends_on:
       - postgres
     ports:
@@ -19,5 +19,3 @@ services:
       - "5432:5432"
 volumes:
   postgres-data:
-
-

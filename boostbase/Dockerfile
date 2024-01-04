@@ -1,5 +1,5 @@
 # Base stage for downloading and installing Boost
-FROM ubuntu:22.04 as boost-base
+FROM ubuntu:22.04 as boostbase
 
 # Install necessary dependencies for building Boost
 RUN apt-get update && apt-get install -y cmake g++ make wget
