@@ -6,13 +6,13 @@
 ## Directory Structure
 ```
 ~/ (postgres-rest-service)
-|-- boost-base/
+|-- boostbase/
 |-- Dockerfile 
-|-- database/ 
+|-- beastgres/ 
 | |-- Dockerfile 
+| |-- CMakeLists.txt
 | |-- *.cpp (C++ files) 
 | |-- *.sql (SQL scripts) 
-| |-- *.txt (Additional text files)
 `-- Docker-compose.yaml
 ```
 
