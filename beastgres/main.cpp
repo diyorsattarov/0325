@@ -19,7 +19,7 @@ std::string handle_database(const std::string &requestData) {
   using json = nlohmann::json;
 
   PGconn *conn = PQconnectdb(
-      "user=user password=password dbname=mydb hostaddr=172.29.0.2 port=5432");
+      "user=user password=password dbname=mydb hostaddr=172.30.0.2 port=5432");
   if (PQstatus(conn) != CONNECTION_OK) {
     std::cerr << "Connection to database failed: " << PQerrorMessage(conn)
               << std::endl;
@@ -62,6 +62,37 @@ std::string handle_database(const std::string &requestData) {
       PQfinish(conn);
       return "Login failed";
     }
+  } else if (method == "register") {
+    // Parse the received data
+    json data = json::parse(requestData); // Assuming req_body is a JSON string
+    std::string email = data["email"];
+    std::string username = data["username"];
+    std::string password = data["password"];
+
+    // Sanitize inputs (using parameterized queries)
+
+    // Prepare statement
+    PGresult *res = PQprepare(
+        conn, "insert_user",
+        "INSERT INTO users(email, username, password) VALUES ($1, $2, $3)", 0,
+        NULL);
+
+    // Execute with sanitized inputs
+    const char *paramValues[3] = {email.c_str(), username.c_str(),
+                                  password.c_str()};
+    res = PQexecPrepared(conn, "insert_user", 3, paramValues, NULL, NULL, 0);
+
+    // Check execution status
+    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+      std::cerr << "Insert failed: " << PQerrorMessage(conn) << std::endl;
+      PQclear(res);
+      PQfinish(conn);
+      return "Registration error";
+    }
+
+    PQclear(res);
+    PQfinish(conn);
+    return "Registration successful";
   } else if (method == "products") {
     PGresult *res = PQexec(conn, "SELECT * FROM products");
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
