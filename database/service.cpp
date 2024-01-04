@@ -33,11 +33,19 @@ std::string handle_database(const std::string &requestData) {
     std::string username = requestJson.value("username", "");
     std::string password = requestJson.value("password", "");
 
-    // Create a query string with username and password
-    std::string query = "SELECT * FROM users WHERE username = '" + username +
-                        "' AND password = '" + password + "'";
-    PGresult *res = PQexec(conn, query.c_str());
+    // Use prepared statements to avoid SQL injection
+    const char *paramValues[2];
+    paramValues[0] = username.c_str();
+    paramValues[1] = password.c_str();
 
+    PGresult *res = PQexecParams(
+        conn, "SELECT * FROM users WHERE username = $1 AND password = $2",
+        2,    // number of params
+        NULL, // let the library deduce param type
+        paramValues,
+        NULL, // don't need param lengths since text
+        NULL, // default to all text params
+        0);   // ask for text results
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
       std::cerr << "SELECT failed: " << PQerrorMessage(conn) << std::endl;
       PQclear(res);
