@@ -1,11 +1,11 @@
-# postgres-rest-service
+# beastgres
 
 ## Introduction
-`postgres-rest-service` is a minimal yet robust demonstration of a REST API utilizing the libpq library for PostgreSQL database interaction. This project highlights efficient database management, SQL utilization, and containerization with Docker.
+`beastgres` is a minimal yet robust demonstration of a REST API utilizing the libpq library for PostgreSQL database interaction. This project highlights efficient database management, SQL utilization, and containerization with Docker.
 
 ## Directory Structure
 ```
-~/ (postgres-rest-service)
+~/ (beastgres)
 |-- boostbase/
 |-- Dockerfile 
 |-- beastgres/ 
