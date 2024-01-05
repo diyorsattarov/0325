@@ -16,10 +16,8 @@ using tcp = boost::asio::ip::tcp;
 using json = nlohmann::json;
 // Function to handle the database connection and queries
 std::string handle_database(const std::string &requestData) {
-  using json = nlohmann::json;
-
-  PGconn *conn = PQconnectdb(
-      "user=user password=password dbname=mydb hostaddr=172.30.0.2 port=5432");
+  PGconn *conn = PQconnectdb("user=user password=password dbname=mydb "
+                             "hostaddr=192.168.32.2 port=5432");
   if (PQstatus(conn) != CONNECTION_OK) {
     std::cerr << "Connection to database failed: " << PQerrorMessage(conn)
               << std::endl;
@@ -63,15 +61,35 @@ std::string handle_database(const std::string &requestData) {
       return "Login failed";
     }
   } else if (method == "register") {
-    // Parse the received data
-    json data = json::parse(requestData); // Assuming req_body is a JSON string
+    json data = json::parse(requestData);
     std::string email = data["email"];
     std::string username = data["username"];
     std::string password = data["password"];
 
-    // Sanitize inputs (using parameterized queries)
+    // First, check if the username or email already exists
+    const char *checkParamValues[2] = {username.c_str(), email.c_str()};
+    PGresult *checkRes = PQexecParams(
+        conn,
+        "SELECT username, email FROM users WHERE username = $1 OR email = $2",
+        2, NULL, checkParamValues, NULL, NULL, 0);
 
-    // Prepare statement
+    if (PQresultStatus(checkRes) != PGRES_TUPLES_OK) {
+      std::cerr << "SELECT failed: " << PQerrorMessage(conn) << std::endl;
+      PQclear(checkRes);
+      PQfinish(conn);
+      return "Error checking existing user";
+    }
+
+    if (PQntuples(checkRes) > 0) {
+      PQclear(checkRes);
+      PQfinish(conn);
+      return "Username or email already exists";
+    }
+    PQclear(checkRes);
+
+    // If username/email is unique, proceed with registration
+
+    // Prepare statement for insert
     PGresult *res = PQprepare(
         conn, "insert_user",
         "INSERT INTO users(email, username, password) VALUES ($1, $2, $3)", 0,
@@ -82,7 +100,6 @@ std::string handle_database(const std::string &requestData) {
                                   password.c_str()};
     res = PQexecPrepared(conn, "insert_user", 3, paramValues, NULL, NULL, 0);
 
-    // Check execution status
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
       std::cerr << "Insert failed: " << PQerrorMessage(conn) << std::endl;
       PQclear(res);
