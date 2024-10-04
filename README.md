@@ -1,33 +1,23 @@
-# beastgres
+              GLWTS(Good Luck With That Shit) Общественная Лицензия
+                      Copyright (c) Все блять, кроме Автора
 
-## Introduction
-`beastgres` is a minimal yet robust demonstration of a REST API utilizing the libpq library for PostgreSQL database interaction. This project highlights efficient database management, SQL utilization, and containerization with Docker.
+Всем разрешается копировать, распространять, изменять, совмещать, продавать,
+публиковать, сублицензировать или творить любую другую хуйню с этим кодом
+на СВОЙ СТРАХ и РИСК.
 
-## Directory Structure
-```
-~/ (beastgres)
-|-- boostbase/
-|-- Dockerfile 
-|-- beastgres/ 
-| |-- Dockerfile 
-| |-- CMakeLists.txt
-| |-- *.cpp (C++ files) 
-| |-- *.sql (SQL scripts) 
-`-- Docker-compose.yaml
-```
+Автор абсолютно нихуя не понимает в предназначении данного кода.
+Он может сработать, а может и нет - автору не ебет.
 
-## Building and Running
-1. **Prerequisites:** Ensure Docker and Docker Compose are installed on your system.
-2. **Build the Containers:**
-   - Navigate to the project root.
-   - Run `docker-compose build` to build the images specified in `Docker-compose.yaml`.
-3. **Run the Services:**
-   - Execute `docker-compose up` to start the services.
-   - The REST API will be accessible at the specified port.
 
-## Key Features
-- **REST API:** Efficient handling of HTTP requests with a focus on CRUD operations.
-- **Database Interaction:** Usage of the libpq library for PostgreSQL, demonstrating database connection, querying, and transaction management.
-- **SQL and PostgreSQL:** Application of SQL scripts for database schema creation and management.
-- **Dockerization:** Each component (REST API and PostgreSQL database) is containerized for easy deployment and scalability.
+                    "УДАЧИ С ЭТОМ ДЕРЬМОМ" ОБЩЕСТВЕННАЯ ЛИЦЕНЗИЯ
+          УСЛОВИЯ И ПОЛОЖЕНИЯ ДЛЯ КОПИРОВАНИЯ, РАСПРОСТРАНЕНИЯ И ИЗМЕНЕНИЯ
 
+  0. Делайте ЛЮБУЮ ХУЙНЮ, ВЗБРЕДУЩУЮ ВАМ В ГОЛОВУ до тех пор, пока ВЫ НЕ ОСТАВЛЯЕТЕ
+УЛИК ДЛЯ НАХОЖДЕНИЯ АВТОРА оригинального продукта, чтобы обвинить его или заставить
+взять на себя ответственность.
+
+НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ АВТОРЫ НЕ НЕСУТ ОТВЕТСТВЕННОСТИ ЗА ПРЕТЕНЗИИ,
+УБЫТКИ ИЛИ ДРУГИЕ ОТВЕТСТВЕННОСТИ, ПОДНЯТЫЕ ВО ВРЕМЯ КОНТРАКТА И ВЫЗВАННЫЕ
+ПРЯМОЙ ИЛИ КОСВЕННОЙ СВЯЗЬЮ С ПРОГРАММНЫМ ОБЕСПЕЧЕНИЕМ.
+
+Удачи, и храни тебя Господь.
