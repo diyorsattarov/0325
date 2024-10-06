@@ -16,8 +16,8 @@ using tcp = boost::asio::ip::tcp;
 using json = nlohmann::json;
 // Function to handle the database connection and queries
 std::string handle_database(const std::string &requestData) {
-  PGconn *conn = PQconnectdb("user=user password=password dbname=mydb "
-                             "hostaddr=192.168.32.2 port=5432");
+  PGconn *conn = PQconnectdb("user= password= dbname= "
+                             "hostaddr= port=");
   if (PQstatus(conn) != CONNECTION_OK) {
     std::cerr << "Connection to database failed: " << PQerrorMessage(conn)
               << std::endl;
